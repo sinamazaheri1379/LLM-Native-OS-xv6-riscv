@@ -1,6 +1,8 @@
+#ifndef _USER_H_
+#define _USER_H_
+#include "kernel/types.h"
 struct stat;
 
-// system calls
 int fork(void);
 int exit(int) __attribute__((noreturn));
 int wait(int*);
@@ -22,7 +24,7 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
-
+int shutdown(void);
 // ulib.c
 int stat(const char*, struct stat*);
 char* strcpy(char*, const char*);
@@ -41,3 +43,4 @@ void *memcpy(void *, const void *, uint);
 // umalloc.c
 void* malloc(uint);
 void free(void*);
+#endif // _USER_H_

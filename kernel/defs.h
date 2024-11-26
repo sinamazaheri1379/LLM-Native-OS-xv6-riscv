@@ -1,3 +1,7 @@
+#include "types.h"
+#include "param.h"
+#include "riscv.h"  // Add this line to get pagetable_t and pte_t definitions
+
 struct buf;
 struct context;
 struct file;
@@ -61,7 +65,7 @@ void            ramdiskrw(struct buf*);
 
 // kalloc.c
 void*           kalloc(void);
-void            kfree(void *);
+void            kfree(void*);
 void            kinit(void);
 
 // log.c
@@ -77,7 +81,7 @@ int             piperead(struct pipe*, uint64, int);
 int             pipewrite(struct pipe*, uint64, int);
 
 // printf.c
-int            printf(char*, ...) __attribute__ ((format (printf, 1, 2)));
+int             printf(char*, ...) __attribute__ ((format (printf, 1, 2)));
 void            panic(char*) __attribute__((noreturn));
 void            printfinit(void);
 
@@ -106,7 +110,6 @@ void            yield(void);
 int             either_copyout(int user_dst, uint64 dst, void *src, uint64 len);
 int             either_copyin(void *dst, int user_src, uint64 src, uint64 len);
 void            procdump(void);
-
 // swtch.S
 void            swtch(struct context*, struct context*);
 
@@ -141,12 +144,19 @@ int             fetchstr(uint64, char*, int);
 int             fetchaddr(uint64, uint64*);
 void            syscall();
 
+
+// Add to defs.h
+
+
+
 // trap.c
 extern uint     ticks;
 void            trapinit(void);
 void            trapinithart(void);
 extern struct spinlock tickslock;
 void            usertrapret(void);
+
+
 
 // uart.c
 void            uartinit(void);

@@ -57,3 +57,5 @@
 //   TRAPFRAME (p->trapframe, used by the trampoline)
 //   TRAMPOLINE (the same page as in the kernel)
 #define TRAPFRAME (TRAMPOLINE - PGSIZE)
+#define ACPI_PM1A_CNT 0x1004
+#define KBD_CTRL      0x64

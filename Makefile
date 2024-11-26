@@ -1,6 +1,7 @@
 K=kernel
 U=user
 
+
 OBJS = \
   $K/entry.o \
   $K/start.o \
@@ -30,9 +31,10 @@ OBJS = \
   $K/plic.o \
   $K/virtio_disk.o
 
-# riscv64-unknown-elf- or riscv64-linux-gnu-
-# perhaps in /opt/riscv/bin
-#TOOLPREFIX = 
+
+
+
+   # NOTE: added < after $
 
 # Try to infer the correct TOOLPREFIX if not set
 ifndef TOOLPREFIX
@@ -139,19 +141,24 @@ UPROGS=\
 	$U/_grind\
 	$U/_wc\
 	$U/_zombie\
+    $U/_shutdown
+
 
 fs.img: mkfs/mkfs README $(UPROGS)
 	mkfs/mkfs fs.img README $(UPROGS)
 
 -include kernel/*.d user/*.d
 
-clean: 
+clean: # lwip-clean
 	rm -f *.tex *.dvi *.idx *.aux *.log *.ind *.ilg \
 	*/*.o */*.d */*.asm */*.sym \
 	$U/initcode $U/initcode.out $K/kernel fs.img \
 	mkfs/mkfs .gdbinit \
-        $U/usys.S \
+    $U/usys.S \
 	$(UPROGS)
+
+#lwip-clean:
+#	rm -f $(LWIPFILES) $(LWIPIPV4FILES)
 
 # try to generate a unique GDB port
 GDBPORT = $(shell expr `id -u` % 5000 + 25000)
@@ -167,7 +174,9 @@ QEMUOPTS = -machine virt -bios none -kernel $K/kernel -m 128M -smp $(CPUS) -nogr
 QEMUOPTS += -global virtio-mmio.force-legacy=false
 QEMUOPTS += -drive file=fs.img,if=none,format=raw,id=x0
 QEMUOPTS += -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
-
+##
+#QEMUOPTS += -netdev user,id=net0,hostfwd=tcp::10007-:80
+#QEMUOPTS += -device virtio-net-device,netdev=net0,bus=virtio-mmio-bus.1
 qemu: $K/kernel fs.img
 	$(QEMU) $(QEMUOPTS)
 

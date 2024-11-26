@@ -1,10 +1,10 @@
 #include "types.h"
-#include "riscv.h"
 #include "defs.h"
 #include "param.h"
 #include "memlayout.h"
 #include "spinlock.h"
 #include "proc.h"
+
 
 uint64
 sys_exit(void)
@@ -91,3 +91,32 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+uint64
+sys_shutdown(void)
+{
+    printf("Shutting down...\n");
+
+    // Try ACPI poweroff
+    volatile uint16 *acpi_pm1a_cnt = (volatile uint16 *)ACPI_PM1A_CNT;
+    *acpi_pm1a_cnt = (1 << 13) | (1 << 14); // SLP_EN | SLP_TYP
+
+    // If ACPI failed, try keyboard controller reset
+    volatile uint8 *keyboard_ctrl = (volatile uint8 *)KBD_CTRL;
+    *keyboard_ctrl = 0xFE;
+
+    // If that didn't work, try the triple fault approach
+    printf("Forcing shutdown...\n");
+    asm volatile(
+            "csrw satp, zero\n"    // Disable MMU
+            "sfence.vma\n"         // Flush TLB
+            "li a0, 0\n"           // NULL pointer
+            "ld a0, (a0)\n"        // Cause fault
+            );
+
+    // Should never get here
+    printf("Shutdown failed\n");
+    return -1;
+}
+
+
+
