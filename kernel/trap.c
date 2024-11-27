@@ -6,6 +6,11 @@
 #include "proc.h"
 #include "defs.h"
 
+//#include "lwip/timeouts.h"
+//#include "net/driver/e1000.h"
+//#include "net/netif.h"
+//#include "lwip/ethernet.h"
+
 struct spinlock tickslock;
 uint ticks;
 
@@ -166,6 +171,9 @@ clockintr()
   if(cpuid() == 0){
     acquire(&tickslock);
     ticks++;
+      // Process all lwIP timers every 10ms
+      // Added
+//    sys_check_timeouts();
     wakeup(&ticks);
     release(&tickslock);
   }
@@ -196,7 +204,21 @@ devintr()
       uartintr();
     } else if(irq == VIRTIO0_IRQ){
       virtio_disk_intr();
-    } else if(irq){
+    }else if(irq == VIRTIO1_IRQ) {
+        virtio_net_intr();  // Handle network interrupt
+    }
+
+
+//    else if(irq == E1000_IRQ){
+//        // Handle network interrupt
+//        struct pbuf *p;
+//        while((p = e1000_recv()) != NULL) {
+//            if(ethernet_input(p, default_netif) != ERR_OK) {
+//                pbuf_free(p);
+//            }
+//        }
+//    }
+    else if(irq){
       printf("unexpected interrupt irq=%d\n", irq);
     }
 
@@ -215,4 +237,5 @@ devintr()
     return 0;
   }
 }
+
 
