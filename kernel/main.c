@@ -27,8 +27,14 @@ main()
     fileinit();      // file table
     virtio_disk_init(); // emulated hard disk
     //
-    virtio_net_init();     // add networking interface
+      printf("\n");
+      printf("Everything is OK So far before virtio_net_init()\n");
+      printf("\n");
+//    virtio_net_init();     // add networking interface
     //
+      printf("\n");
+      printf("Everything is OK So far after virtio_net_init()\n");
+      printf("\n");
     userinit();      // first user process
     __sync_synchronize();
     started = 1;
