@@ -21,3 +21,48 @@
 #define SYS_mkdir  20
 #define SYS_close  21
 #define SYS_shutdown  23  // Add after other syscalls
+
+// AIOS Kernel Scheduler syscalls
+#define SYS_llm_set_id 24
+#define SYS_llm_get_id 25
+#define SYS_llm_get_status 26
+#define SYS_llm_set_status 27
+#define SYS_llm_set_priority 28
+#define SYS_llm_get_priority 29
+
+// AIOS Kernel LLM Core(s) syscalls
+
+#define SYS_llm_generate 30
+
+// AIOS Kernel Context Manager
+
+#define SYS_llm_gen_snapshot 31
+#define SYS_llm_gen_restore 32
+#define SYS_llm_check_restore 33
+#define SYS_llm_clear_restore 34
+
+///////////////////////////////
+
+
+
+// AIOS Kernel Memory Manager
+
+#define SYS_llm_mem_alloc 35
+#define SYS_llm_mem_read 36
+#define SYS_llm_mem_write 37
+#define SYS_llm_mem_clear 38
+
+// AIOS Kernel Storage Manager
+
+#define SYS_sto_create 39
+#define SYS_sto_read 40
+#define SYS_sto_write 41
+#define SYS_sto_retrieve 42
+#define SYS_sto_clear 43
+
+// AIOS Kernel Tool Manager
+
+#define SYS_tool_run 44
+
+
+// AIOS Kernel Access Manager

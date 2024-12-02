@@ -118,5 +118,96 @@ sys_shutdown(void)
     return -1;
 }
 
+uint64
+sys_llm_set_id(void){
+    return 0;
+}
+uint64
+sys_llm_get_id(void){
+    return 0;
+}
+uint64
+sys_llm_set_status(void){
+    return 0;
+}
+uint64
+sys_llm_get_status(void){
+    return 0;
+}
+uint64
+sys_llm_set_priority(void){
+    return 0;
+}
+uint64
+sys_llm_get_priority(void){
+    return 0;
+}
+
+
+////
+uint64
+sys_llm_generate(void){
+    return 0;
+}
+/////
+uint64
+sys_llm_mem_alloc(void){
+    return 0;
+}
+uint64
+sys_llm_mem_read(void){
+    return 0;
+}
+
+uint64
+sys_llm_mem_write(void){
+    return 0;
+}
+
+uint64 sys_llm_mem_clear(void){
+    return 0;
+}
+//////
+uint64
+sys_llm_sto_create(void){
+    return 0;
+}
+uint64 sys_llm_sto_read(void){
+    return 0;
+}
+uint64
+sys_llm_sto_write(void){
+    return 0;
+}
+uint64
+sys_llm_sto_retrieve(void){
+    return 0;
+}
+uint64
+sys_llm_sto_clear(void){
+    return 0;
+}
+//////
+uint64
+sys_llm_tool_run(void){
+    return 0;
+}
+//////
+uint64
+sys_llm_gen_snapshot(void){
+    return 0;
+}
+uint64
+sys_llm_gen_restore(void){
+    return 0;
+}
+uint64
+sys_llm_check_restore(void){
+    return 0;
+}
+uint64
+sys_llm_clear_restore(void){
+    return 0;
+}
 
 

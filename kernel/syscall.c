@@ -101,6 +101,39 @@ extern uint64 sys_link(void);
 extern uint64 sys_mkdir(void);
 extern uint64 sys_close(void);
 extern uint64 sys_shutdown(void);
+
+////
+extern uint64 sys_llm_set_id(void);
+extern uint64 sys_llm_get_id(void);
+extern uint64 sys_llm_set_status(void);
+extern uint64 sys_llm_get_status(void);
+extern uint64 sys_llm_set_priority(void);
+extern uint64 sys_llm_get_priority(void);
+
+
+/////
+extern uint64 sys_llm_generate(void);
+/////
+extern uint64 sys_llm_mem_alloc(void);
+extern uint64 sys_llm_mem_read(void);
+extern uint64 sys_llm_mem_write(void);
+extern uint64 sys_llm_mem_clear(void);
+//////
+extern uint64 sys_llm_sto_create(void);
+extern uint64 sys_llm_sto_read(void);
+extern uint64 sys_llm_sto_write(void);
+extern uint64 sys_llm_sto_retrieve(void);
+extern uint64 sys_llm_sto_clear(void);
+//////
+extern uint64 sys_llm_tool_run(void);
+//////
+extern uint64 sys_llm_gen_snapshot(void);
+extern uint64 sys_llm_gen_restore(void);
+extern uint64 sys_llm_check_restore(void);
+extern uint64 sys_llm_clear_restore(void);
+//////
+
+
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
 static uint64 (*syscalls[])(void) = {
@@ -126,6 +159,33 @@ static uint64 (*syscalls[])(void) = {
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
 [SYS_shutdown] sys_shutdown,
+/////
+[SYS_llm_set_id] sys_llm_set_id,
+[SYS_llm_get_id] sys_llm_get_id,
+[SYS_llm_get_status] sys_llm_get_status,
+[SYS_llm_set_status] sys_llm_set_status,
+[SYS_llm_set_priority] sys_llm_set_priority,
+[SYS_llm_get_priority] sys_llm_get_priority,
+////
+[SYS_llm_generate] sys_llm_generate,
+///
+[SYS_llm_gen_snapshot] sys_llm_gen_snapshot,
+[SYS_llm_gen_restore] sys_llm_gen_restore,
+[SYS_llm_check_restore] sys_llm_check_restore,
+[SYS_llm_clear_restore] sys_llm_clear_restore,
+/////
+[SYS_llm_mem_alloc] sys_llm_mem_alloc,
+[SYS_llm_mem_read] sys_llm_mem_read,
+[SYS_llm_mem_write] sys_llm_mem_write,
+[SYS_llm_mem_clear] sys_llm_mem_clear,
+/////
+[SYS_sto_create] sys_llm_sto_create,
+[SYS_sto_read] sys_llm_sto_read,
+[SYS_sto_write] sys_llm_sto_write,
+[SYS_sto_retrieve] sys_llm_sto_retrieve,
+[SYS_sto_clear] sys_llm_sto_clear,
+/////
+[SYS_tool_run] sys_llm_tool_run
 };
 
 void
