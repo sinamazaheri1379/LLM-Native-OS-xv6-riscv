@@ -22,7 +22,7 @@
 #define SYS_close  21
 #define SYS_shutdown  23  // Add after other syscalls
 
-// AIOS Kernel Scheduler syscalls
+// AIOS Kernel scheduler syscalls
 #define SYS_llm_set_id 24
 #define SYS_llm_get_id 25
 #define SYS_llm_get_status 26

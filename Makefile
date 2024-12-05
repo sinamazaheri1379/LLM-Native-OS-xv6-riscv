@@ -71,7 +71,8 @@ CFLAGS += -fno-builtin-memcpy -Wno-main
 CFLAGS += -fno-builtin-printf -fno-builtin-fprintf -fno-builtin-vprintf
 CFLAGS += -I.
 CFLAGS += $(shell $(CC) -fno-stack-protector -E -x c /dev/null >/dev/null 2>&1 && echo -fno-stack-protector)
-
+CFLAGS += -march=rv64gc_zicsr_zifencei # Base + compressed + FP support
+CFLAGS += -mabi=lp64d                   # Use double-precision ABI
 # Disable PIE when possible (for Ubuntu 16.10 toolchain)
 ifneq ($(shell $(CC) -dumpspecs 2>/dev/null | grep -e '[^f]no-pie'),)
 CFLAGS += -fno-pie -no-pie
@@ -177,7 +178,7 @@ QEMUOPTS += -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
 ##
 QEMUOPTS += -netdev user,id=net0,hostfwd=tcp::10007-:80
 QEMUOPTS += -device virtio-net-device,netdev=net0,bus=virtio-mmio-bus.1
-##
+QEMUOPTS += -cpu rv64 ##
 qemu: $K/kernel fs.img
 	$(QEMU) $(QEMUOPTS)
 
